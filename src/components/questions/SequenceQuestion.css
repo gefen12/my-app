@@ -1,0 +1,95 @@
+
+  
+  .step-box.dragging {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .step-box.correct {
+    background-color: #e6ffe6;
+    border: 2px solid #4CAF50;
+  }
+  
+  .step-box.incorrect {
+    background-color: #ffe6e6;
+    border: 2px solid #f44336;
+  }
+  .question-card{
+    position: relative;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 80%;
+    z-index: 2;
+      
+  }
+  .submit-button {
+    position: relative;
+    right:35%;
+    margin-top: 6rem;
+    background-color: white;
+    border: none;
+    padding: 0.5rem;
+    width: 4rem;
+    border-radius: 10px;
+    color: #d67f2c;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  .question-text {
+    position: relative;
+    /* top: 5rem; */
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 90%;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .step-box {
+    position: relative;
+    /* top:5rem; */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+  }
+  
+/* Breakpoint for landscape mode on small screens */
+@media (orientation: landscape) {
+  .quiz-container {
+    padding: 10px; /* Reduce padding */
+    max-width: 100%; /* Allow full width */
+  }
+
+  .step-box {
+    font-size: 0.8rem; /* Reduce font size for step boxes */
+    padding: 0.2rem; /* Reduce padding for step boxes */
+    margin-bottom: 0.5rem; /* Reduce margin for step boxes */
+  }
+
+  .question-text {
+   
+    width: 95%; /* Full width for question text */
+    font-size: 1rem; /* Reduce font size for the question */
+    padding: 0.5rem; /* Adjust padding */
+  }
+  .submit-button {
+    margin-top: 5rem;
+    padding: 0.2rem;
+    font-size: 1rem;
+    right:45%;
+  }
+}
+

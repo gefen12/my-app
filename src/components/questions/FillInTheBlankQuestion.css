@@ -1,0 +1,134 @@
+.fill-container {
+    position: relative;
+    top: 1.7rem;
+    max-width: 600px;
+    margin: 1rem;
+    direction: rtl;
+    text-align: right;
+    z-index: 2;
+    font-size: 1rem;
+  }
+  
+  .sentence-block {
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+   row-gap: 0.7rem;
+
+  }
+  
+  .drop-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin: 0 5px;
+    background-color: #fff;
+    transition: background 0.2s;
+  }
+  
+  .drop-slot:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .drop-word {
+    background: white;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin: 0 5px;
+    cursor: grab;
+  }
+  
+  .empty-slot {
+    color: #aaa;
+    font-style: italic;
+    padding: 4px;
+  }
+  
+  .word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    min-height: 50px;
+  }
+  
+  .word {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    cursor: grab;
+    transition: background 0.2s;
+  }
+  
+  .word:hover {
+    background-color: #d6d6d6;
+  }
+  .submit-button {
+    text-align: center  ;
+    position: relative;
+    right:40%;
+    margin-top: 2rem;
+    background-color: white;
+    border: none;
+    padding: 0.5rem;
+    width: 4rem;
+    border-radius: 10px;
+    color: #d67f2c;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+
+  
+  .check-result {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .correct {
+    color: green;
+  }
+  
+  .wrong {
+    color: red;
+  }
+  
+  /* Breakpoint for landscape mode on small screens */
+@media (orientation: landscape) {
+    
+
+    .title-fill {
+        position: relative;
+        top:0.8rem;
+        width: 50%;
+      font-size: 1rem; /* Reduce font size for the question */
+      padding: 0.2rem; /* Adjust padding */
+    }
+    .submit-button {
+      position: relative;
+      bottom: 1.5rem;
+      padding: 0.2rem;
+      font-size: 1rem;
+      right:40%;
+    }
+    .word-bank {
+        min-height: 20px;
+      }
+    .word {
+        padding: 0.2rem 0.5rem;
+    }
+
+  }
+  
