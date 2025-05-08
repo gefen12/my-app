@@ -8,6 +8,7 @@ import questions from './questions.json'; // Import JSON data
 import WelcomeScreen from './components/WelcomeScreen';
 import Header from "./components/Header";
 import QuestionCard from "./components/QuestionCard";
+import ProgressBar from "./components/ProgressBar"; 
 // import TestSequence from "./TestSequence";
 // import TestFillInTheBlank from "./TestFillInTheBlank";
 
@@ -46,11 +47,18 @@ function App() {
       <img src={leopardPattern} alt="leopard pattern" className="leopard-pattern" />
       {showWelcome && <WelcomeScreen onStart={() => setShowWelcome(false)} />}
       {!showWelcome && !quizCompleted &&(
-        <QuestionCard 
-        question={questions[currentQuestionIndex]} 
-        onNext={handleNext}
-        onAnswer={handleAnswer}
-        />
+        <>
+          {/* Progress Bar */}
+           <ProgressBar
+               current={currentQuestionIndex + 1}
+               total={questions.length}
+           />
+            <QuestionCard 
+              question={questions[currentQuestionIndex]} 
+              onNext={handleNext}
+              onAnswer={handleAnswer}
+            />
+        </>
         // <TestSequence />
         // <TestFillInTheBlank />
       )}
