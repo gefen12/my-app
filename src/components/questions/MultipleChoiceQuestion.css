@@ -6,6 +6,7 @@
   border-radius: 10px;
   text-align: center;
   max-width: 400px;
+  width: 90vw;
   z-index: 2;
 }
 .options {
@@ -35,11 +36,13 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 1rem;
     text-align: center;
+   
 }
 
 
   .option-button.selected {
     outline: 3px solid #929090a8;
+    background-color: #e2e2e2;
   }
   
   .option-button.correct {
@@ -54,9 +57,9 @@
   }
   
   .submit-button {
-    position: relative;
-    right:40%;
-    margin-top: 2rem;
+    position: absolute;
+    top: 100%;
+    transform: translateX(-30%);
     background-color: white;
     border: none;
     padding: 0.5rem;

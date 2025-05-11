@@ -8,7 +8,7 @@ import questions from './questions.json'; // Import JSON data
 import WelcomeScreen from './components/WelcomeScreen';
 import Header from "./components/Header";
 import QuestionCard from "./components/QuestionCard";
-import ProgressBar from "./components/ProgressBar"; 
+
 // import TestSequence from "./TestSequence";
 // import TestFillInTheBlank from "./TestFillInTheBlank";
 
@@ -49,14 +49,13 @@ function App() {
       {!showWelcome && !quizCompleted &&(
         <>
           {/* Progress Bar */}
-           <ProgressBar
-               current={currentQuestionIndex + 1}
-               total={questions.length}
-           />
+    
             <QuestionCard 
               question={questions[currentQuestionIndex]} 
               onNext={handleNext}
               onAnswer={handleAnswer}
+              current={currentQuestionIndex + 1} // Pass current question index
+              total={questions.length} // Pass total number of questions
             />
         </>
         // <TestSequence />

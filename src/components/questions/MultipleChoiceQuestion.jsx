@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./MultipleChoiceQuestion.css";
+import ProgressBar from "../ProgressBar.jsx"; // Import the ProgressBar component
 
-const MultipleChoiceQuestion = ({ question, onNext, onAnswer }) => {
+const MultipleChoiceQuestion = ({ question, onNext, onAnswer, current, total }) => {
   const correctAnswers = question.correctAnswers;
   const [selected, setSelected] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -45,7 +46,9 @@ const MultipleChoiceQuestion = ({ question, onNext, onAnswer }) => {
 
   return (
     <div className="quiz-container">
-      <div className="question-text">{question.question}</div>
+      <div className="question-text">
+        <ProgressBar current={current} total={total} /> {/* Progress Bar */}
+        {question.question}</div>
       <div className="options">
         {question.options.map((option, index) => (
           <div

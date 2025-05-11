@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import "./FillInTheBlankQuestion.css";
+import ProgressBar from "../ProgressBar.jsx"; // Import the ProgressBar component
 
-export default function FillInTheBlank({ question, onAnswer, onNext }) {
+export default function FillInTheBlank({ question, onAnswer, onNext, current, total }) {
     // Create unique IDs for options
     const initializedOptions = question.options.map((word, i) => ({
       id: `${word}-${i}`,
@@ -69,7 +70,9 @@ export default function FillInTheBlank({ question, onAnswer, onNext }) {
   
     return (
       <div className="fill-container">
-        <h2 className="title-fill">{question.question}</h2>
+        <h2 className="title-fill">
+          <ProgressBar current={current} total={total} /> {/* Progress Bar */}
+          {question.question}</h2>
         <DragDropContext onDragEnd={onDragEnd}>
           {question.blocks.map((block, rowIndex) => {
             const parts = block.text.split("_");
@@ -103,7 +106,7 @@ export default function FillInTheBlank({ question, onAnswer, onNext }) {
                                 )}
                               </Draggable>
                             ) : (
-                              <span className="empty-slot">____</span>
+                              <span className="empty-slot"></span>
                             )}
                             {provided.placeholder}
                           </span>
@@ -121,7 +124,7 @@ export default function FillInTheBlank({ question, onAnswer, onNext }) {
             );
           })}
   
-          <h3 className="title-bank">מילון מילים:</h3>
+         
           <Droppable droppableId="options" direction="horizontal">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps} className="word-bank">

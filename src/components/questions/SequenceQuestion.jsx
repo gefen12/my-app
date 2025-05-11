@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     DragDropContext,
     Droppable,
     Draggable
   } from "@hello-pangea/dnd";
 import "./SequenceQuestion.css";
+import ProgressBar from "../ProgressBar.jsx"; // Import the ProgressBar component
 
-const SequenceQuestion = ({ question, onNext, onAnswer }) => {
+const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
   const [currentOrder, setCurrentOrder] = useState(
     question.steps.map((_, i) => i)
   );
   const [checked, setChecked] = useState(false);
+
+  // Reset currentOrder whenever the question changes
+  useEffect(() => {
+    setCurrentOrder(question.steps.map((_, i) => i));
+    setChecked(false); // Reset the checked state
+  }, [question]);
 
   const handleDragEnd = (result) => {
     if (!result.destination || checked) return;
@@ -37,7 +44,9 @@ const SequenceQuestion = ({ question, onNext, onAnswer }) => {
 
   return (
     <div className="question-card">
-      <div className="question-text">{question.question}</div>
+      <div className="question-text">
+        <ProgressBar current={current} total={total} />
+        {question.question}</div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="steps">
           {(provided) => (

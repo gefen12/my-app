@@ -3,22 +3,26 @@ import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import SequenceQuestion from "./questions/SequenceQuestion";
 import FillInTheBlankQuestion from "./questions/FillInTheBlankQuestion";
 
-const QuestionCard = ({ question, onNext, onAnswer }) => {
-
+const QuestionCard = ({ question, onNext, onAnswer, current, total }) => {
   const handleAnswer = (isCorrect) => {
     onAnswer(question.id, isCorrect); // Save the result
   };
 
-  switch (question.type) {
-    case "multiple-choice":
-      return <MultipleChoiceQuestion question={question} onAnswer={handleAnswer} onNext={onNext}  />;
-    case "sequence":
-      return <SequenceQuestion question={question} onAnswer={handleAnswer} onNext={onNext}  />;
-    case "fill-in-the-blank":
-      return <FillInTheBlankQuestion question={question} onAnswer={handleAnswer} onNext={onNext}  />;
-    default:
-      return <div>Unknown question type</div>;
-  }
+  return (
+    <div>
+
+      {/* Render the appropriate question type */}
+      {question.type === "multiple-choice" && (
+        <MultipleChoiceQuestion question={question} onAnswer={handleAnswer} onNext={onNext} current={current} total={total} />
+      )}
+      {question.type === "sequence" && (
+        <SequenceQuestion question={question} onAnswer={handleAnswer} onNext={onNext}  current={current} total={total} />
+      )}
+      {question.type === "fill-in-the-blank" && (
+        <FillInTheBlankQuestion question={question} onAnswer={handleAnswer} onNext={onNext}  current={current} total={total} />
+      )}
+    </div>
+  );
 };
 
 export default QuestionCard;
