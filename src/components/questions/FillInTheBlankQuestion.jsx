@@ -18,6 +18,10 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
     );
     const [options, setOptions] = useState(initializedOptions);
     const [submitted, setSubmitted] = useState(false);
+    const [attempts, setAttempts] = useState(0); // Track the number of attempts
+    const [showExplanation, setShowExplanation] = useState(false); // Show explanation after 2 incorrect attempts
+
+    
     const onDragEnd = ({ source, destination, draggableId }) => {
       if (!destination) return;
   
@@ -55,6 +59,7 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
     const isCorrect = (rowIndex) => {
       const correctWords = question.blocks[rowIndex].correctWords;
       const userWords = answers[rowIndex].map((a) => a?.word || null);
+
       return (
         correctWords.length === userWords.length &&
         correctWords.every((word, i) => word === userWords[i])
@@ -65,13 +70,34 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
         setSubmitted(true);
         // Check if all rows are correct
         const allCorrect = question.blocks.every((_, rowIndex) => isCorrect(rowIndex));
-        onAnswer(allCorrect); // Pass the result to the parent
+        if (allCorrect) {
+          onAnswer(true); // Pass the result to the parent
+        } else {
+          const newAttempts = attempts + 1; // Increment attempts
+          setAttempts(newAttempts);
+    
+          if (newAttempts >= 2) {
+            setShowExplanation(true); // Show explanation after 2 incorrect attempts
+          }
+        }
+    };
+    const resetQuestion = () => {
+      setAnswers(
+        question.blocks.map((block) =>
+          block.correctWords.map(() => null)
+        )
+      );
+      setOptions(initializedOptions);
+      setSubmitted(false);
+      setShowExplanation(false);
     };
   
     return (
       <div className="fill-container">
+        {!showExplanation && (
+          <>
         <h2 className="title-fill">
-          <ProgressBar current={current} total={total} /> {/* Progress Bar */}
+          <ProgressBar current={current} total={total} />
           {question.question}</h2>
         <DragDropContext onDragEnd={onDragEnd}>
           {question.blocks.map((block, rowIndex) => {
@@ -147,16 +173,35 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
             )}
           </Droppable>
         </DragDropContext>
-        {!submitted && (
-        <div className="submit-button" onClick={checkAnswers}>
-          בדוק
-        </div>
-      )}
-      {submitted && (
-        <div className="submit-button" onClick={onNext}>
-          המשך
-        </div>
-      )}
+        </>
+        )}
+        {!submitted && !showExplanation && (
+          <div className="submit-button" onClick={checkAnswers}>
+            בדוק
+          </div>
+        )}
+
+        {submitted && !showExplanation && !question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && attempts < 2 && (
+          <div className="submit-button" onClick={resetQuestion}>
+            נסה שוב
+          </div>
+        )}
+
+        {showExplanation && (
+          <div className="explanation">
+            <h3>הסבר:</h3>
+            <p>{question.explanation}</p>
+            <div className="submit-button" onClick={onNext}>
+              המשך
+            </div>
+          </div>
+        )}
+
+        {submitted && !showExplanation && question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && (
+          <div className="submit-button" onClick={onNext}>
+            המשך
+          </div>
+        )}
       </div>
     );
   }

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-    DragDropContext,
-    Droppable,
-    Draggable
-  } from "@hello-pangea/dnd";
+  DragDropContext,
+  Droppable,
+  Draggable
+} from "@hello-pangea/dnd";
 import "./SequenceQuestion.css";
 import ProgressBar from "../ProgressBar.jsx"; // Import the ProgressBar component
 
@@ -12,11 +12,13 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
     question.steps.map((_, i) => i)
   );
   const [checked, setChecked] = useState(false);
+  const [attempts, setAttempts] = useState(0); // Track the number of attempts
+  const [showExplanation, setShowExplanation] = useState(false); // Show explanation after 2 incorrect attempts
 
   // Reset currentOrder whenever the question changes
   useEffect(() => {
-    setCurrentOrder(question.steps.map((_, i) => i));
-    setChecked(false); // Reset the checked state
+    resetQuestion();
+    setAttempts(0); // Reset attempts when question changes
   }, [question]);
 
   const handleDragEnd = (result) => {
@@ -36,17 +38,35 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
       (stepIndex, index) => stepIndex === question.correctOrder[index]
     );
 
-    onAnswer(isCorrect); // Pass the result to the parent
+    if (isCorrect) {
+      onAnswer(true); // Pass the result to the parent
+    } else {
+      const newAttempts = attempts + 1; // Increment attempts
+      setAttempts(newAttempts);
+
+      if (newAttempts >= 2) {
+        setShowExplanation(true); // Show explanation after 2 incorrect attempts
+      }
+    }
   };
-  
+
+  const resetQuestion = () => {
+    setCurrentOrder(question.steps.map((_, i) => i)); // Reset the order
+    setChecked(false); // Reset the checked state
+    setShowExplanation(false); // Reset explanation visibility
+  };
+
   const isCorrect = (index) =>
     currentOrder[index] === question.correctOrder[index];
 
   return (
     <div className="question-card">
+      {!showExplanation && (
+        <>
       <div className="question-text">
         <ProgressBar current={current} total={total} />
-        {question.question}</div>
+        {question.question}
+      </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="steps">
           {(provided) => (
@@ -84,14 +104,48 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
           )}
         </Droppable>
       </DragDropContext>
-
-      {!checked && (
+      </>
+      )}
+      {!checked && !showExplanation && (
         <div className="submit-button" onClick={handleSubmit}>
           בדוק
         </div>
       )}
-      {checked && (
-        <div className="submit-button" onClick={onNext}>
+
+      {checked && !showExplanation && attempts < 2 && (
+        <div
+          className="submit-button"
+          onClick={resetQuestion}
+        >
+          נסה שוב
+        </div>
+      )}
+
+      {showExplanation && (
+        <div className="explanation">
+          <h3>הסבר:</h3>
+          <p>
+            {question.explanation.split(",").map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </p>
+          <div
+            className="submit-button"
+            onClick={onNext}
+          >
+            המשך
+          </div>
+        </div>
+      )}
+
+      {checked && !showExplanation && attempts >= 2 && (
+        <div
+          className="submit-button"
+          onClick={onNext}
+        >
           המשך
         </div>
       )}

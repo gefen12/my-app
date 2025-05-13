@@ -16,17 +16,17 @@
   }
   .question-card{
     position: relative;
-    margin: 1rem;
     display: flex;
     flex-direction: column;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     max-width: 400px;
-    width: 80%;
+     width: 90vw;
     z-index: 2;
       
   }
+ 
   .submit-button {
     position: relative;
     right:35%;
@@ -64,6 +64,16 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: grab;
+  }
+  .explanation {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    width: 90vw;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+    text-align: center;
   }
   
 /* Breakpoint for landscape mode on small screens */
