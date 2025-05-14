@@ -99,7 +99,10 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
         <h2 className="title-fill">
           <ProgressBar current={current} total={total} />
           {question.question}</h2>
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd}   
+          onDragStart={() => {
+           document.body.style.overflow = 'hidden'; }}
+      >
           {question.blocks.map((block, rowIndex) => {
             const parts = block.text.split("_");
             return (
