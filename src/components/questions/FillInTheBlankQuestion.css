@@ -89,6 +89,7 @@
     border-radius: 6px;
     cursor: grab;
     transition: background 0.2s;
+    touch-action: none !important;
   }
   
   .word:hover {
