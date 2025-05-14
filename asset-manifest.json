@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.ad7e17cf.css",
-    "main.js": "/my-app/static/js/main.5fdc6956.js",
+    "main.css": "/my-app/static/css/main.aa72bf2a.css",
+    "main.js": "/my-app/static/js/main.0c7a23ba.js",
     "static/js/453.ed3810f9.chunk.js": "/my-app/static/js/453.ed3810f9.chunk.js",
     "static/media/RubikDirt-Regular.ttf": "/my-app/static/media/RubikDirt-Regular.61a7c124415995ae5007.ttf",
     "static/media/pele-landing.png": "/my-app/static/media/pele-landing.a0cb5b07e30d5680cde6.png",
@@ -9,12 +9,12 @@
     "static/media/leopard.png": "/my-app/static/media/leopard.7743e4530cad11787c2e.png",
     "static/media/leopard2.png": "/my-app/static/media/leopard2.ff8114e88e505814c7d1.png",
     "index.html": "/my-app/index.html",
-    "main.ad7e17cf.css.map": "/my-app/static/css/main.ad7e17cf.css.map",
-    "main.5fdc6956.js.map": "/my-app/static/js/main.5fdc6956.js.map",
+    "main.aa72bf2a.css.map": "/my-app/static/css/main.aa72bf2a.css.map",
+    "main.0c7a23ba.js.map": "/my-app/static/js/main.0c7a23ba.js.map",
     "453.ed3810f9.chunk.js.map": "/my-app/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ad7e17cf.css",
-    "static/js/main.5fdc6956.js"
+    "static/css/main.aa72bf2a.css",
+    "static/js/main.0c7a23ba.js"
   ]
 }
