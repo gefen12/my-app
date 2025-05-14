@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.d5228e9a.css",
-    "main.js": "/my-app/static/js/main.a52eeeb5.js",
+    "main.css": "/my-app/static/css/main.4b431d2a.css",
+    "main.js": "/my-app/static/js/main.e46021cd.js",
     "static/js/453.ed3810f9.chunk.js": "/my-app/static/js/453.ed3810f9.chunk.js",
     "static/media/RubikDirt-Regular.ttf": "/my-app/static/media/RubikDirt-Regular.61a7c124415995ae5007.ttf",
     "static/media/pele-landing.png": "/my-app/static/media/pele-landing.a0cb5b07e30d5680cde6.png",
     "static/media/graphic-tiger-tool.svg": "/my-app/static/media/graphic-tiger-tool.b47dfc480fab67e415dfbefb366fef47.svg",
     "static/media/leopard.png": "/my-app/static/media/leopard.7743e4530cad11787c2e.png",
     "static/media/leopard2.png": "/my-app/static/media/leopard2.ff8114e88e505814c7d1.png",
+    "static/media/logo-black.svg": "/my-app/static/media/logo-black.6291618748474e2ed427acd7c07049a5.svg",
     "index.html": "/my-app/index.html",
-    "main.d5228e9a.css.map": "/my-app/static/css/main.d5228e9a.css.map",
-    "main.a52eeeb5.js.map": "/my-app/static/js/main.a52eeeb5.js.map",
+    "main.4b431d2a.css.map": "/my-app/static/css/main.4b431d2a.css.map",
+    "main.e46021cd.js.map": "/my-app/static/js/main.e46021cd.js.map",
     "453.ed3810f9.chunk.js.map": "/my-app/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d5228e9a.css",
-    "static/js/main.a52eeeb5.js"
+    "static/css/main.4b431d2a.css",
+    "static/js/main.e46021cd.js"
   ]
 }
