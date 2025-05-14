@@ -53,7 +53,7 @@ function App() {
       ) : (
         <>
           {showWelcome && <WelcomeScreen onStart={() => setShowWelcome(false)} />}
-          {!showWelcome && quizCompleted && (
+          {!showWelcome &&!quizCompleted && (
             <>
               <QuestionCard 
                 question={questions[currentQuestionIndex]} 
@@ -64,11 +64,11 @@ function App() {
               />
             </>
           )}
-          {!showWelcome && !quizCompleted && (
+          {!showWelcome && quizCompleted && (
             <div className="final-score">
               <div>סיימת את הלומדה בצורה קטלנית!</div>
               <p> ענית נכון על {calculateScore()} / {questions.length} שאלות  </p>
-              <img src={tigerTool} alt="tiger tool" className="tiger-tool" oncontextmenu="return false;" />
+              {/* <img src={tigerTool} alt="tiger tool" className="tiger-tool" oncontextmenu="return false;" /> */}
               <button
                 onClick={() => setShowLandingPhoto(true)} // Show landing photo on click
                 className="finish-button"
