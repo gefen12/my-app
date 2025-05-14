@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/my-app/static/css/main.396c36db.css",
-    "main.js": "/my-app/static/js/main.2eab6d58.js",
+    "main.js": "/my-app/static/js/main.fb39fd6f.js",
     "static/js/453.ed3810f9.chunk.js": "/my-app/static/js/453.ed3810f9.chunk.js",
     "static/media/RubikDirt-Regular.ttf": "/my-app/static/media/RubikDirt-Regular.61a7c124415995ae5007.ttf",
     "static/media/pele-landing.png": "/my-app/static/media/pele-landing.a0cb5b07e30d5680cde6.png",
@@ -10,11 +10,11 @@
     "static/media/leopard2.png": "/my-app/static/media/leopard2.ff8114e88e505814c7d1.png",
     "index.html": "/my-app/index.html",
     "main.396c36db.css.map": "/my-app/static/css/main.396c36db.css.map",
-    "main.2eab6d58.js.map": "/my-app/static/js/main.2eab6d58.js.map",
+    "main.fb39fd6f.js.map": "/my-app/static/js/main.fb39fd6f.js.map",
     "453.ed3810f9.chunk.js.map": "/my-app/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.396c36db.css",
-    "static/js/main.2eab6d58.js"
+    "static/js/main.fb39fd6f.js"
   ]
 }
