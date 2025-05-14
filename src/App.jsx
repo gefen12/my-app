@@ -42,13 +42,13 @@ function App() {
       {!showLandingPhoto && ( // Show landing photo if state is false
       <>
       <Header />
-      <img src={leopard} alt="leopard" className="leopard" />
-      <img src={leopardPattern} alt="leopard pattern" className="leopard-pattern" />
+      <img src={leopard} alt="leopard" className="leopard" oncontextmenu="return false;" />
+      <img src={leopardPattern} alt="leopard pattern" className="leopard-pattern" oncontextmenu="return false;" />
       </>
       )}
       {showLandingPhoto ? ( // Show landing photo if state is true
         <div className="pele-landing">
-          <img src={peleLanding} alt="pele landing" className="pele-landing-photo" />
+          <img src={peleLanding} alt="pele landing" className="pele-landing-photo" oncontextmenu="return false;" />
         </div>
       ) : (
         <>
@@ -68,7 +68,7 @@ function App() {
             <div className="final-score">
               <div>סיימת את הלומדה בצורה קטלנית!</div>
               <p> ענית נכון על {calculateScore()} / {questions.length} שאלות  </p>
-              <img src={tigerTool} alt="tiger tool" className="tiger-tool" />
+              <img src={tigerTool} alt="tiger tool" className="tiger-tool" oncontextmenu="return false;" />
               <button
                 onClick={() => setShowLandingPhoto(true)} // Show landing photo on click
                 className="finish-button"

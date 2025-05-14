@@ -2,6 +2,9 @@
   color:black;
   direction: rtl;
 }
+img {
+  pointer-events: none;
+}
 @font-face {
   font-family: 'Rubik Dirt';
   src: url('./assets/RubikDirt-Regular.ttf') format('truetype');
