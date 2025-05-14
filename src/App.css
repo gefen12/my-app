@@ -16,6 +16,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow: hidden;
   background-color: #D7AC87;
   background-size: cover;
   background-position: center;
@@ -88,15 +89,18 @@ body {
   cursor: pointer;
 }
 .final-score {
+  position: relative;
+  bottom:10vh;
   font-size: 1.4rem;
   text-align: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   background-color: white ;
   padding:0.6rem;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   width: 95%;
   margin: auto;
+  z-index: 4;
 }
 
 @keyframes moveTigerTool {
@@ -111,7 +115,7 @@ body {
 
 .tiger-tool {
   position: absolute;
-  top: 62vh;  
+  top: 25vh;  
   left: 99vw;
   width: 50%;
   animation: moveTigerTool 5s ease;
@@ -120,7 +124,7 @@ body {
   position: absolute;
   z-index: 100;
   text-align: center;
-  top:62%;
+  top:25vh;
   left:50%;
   transform: translate(-50%,-50%);
   background-color: white;

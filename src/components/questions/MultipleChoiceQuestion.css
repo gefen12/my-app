@@ -58,16 +58,17 @@
   
   .submit-button {
     position: absolute;
-    top: 100%;
+    white-space: nowrap;
+    top: 95%;
     transform: translateX(-30%);
     margin: 0;
     background-color: white;
     border: none;
-    padding: 0.5rem;
-    width: 4rem;
+    font-size:0.7rem;
+    width:5rem; 
     border-radius: 10px;
     color: #d67f2c;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     cursor: pointer;
   }
