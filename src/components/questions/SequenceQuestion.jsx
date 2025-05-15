@@ -14,6 +14,7 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
   const [checked, setChecked] = useState(false);
   const [attempts, setAttempts] = useState(0); // Track the number of attempts
   const [showExplanation, setShowExplanation] = useState(false); // Show explanation after 2 incorrect attempts
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(null); // Track if the answer is correct
 
   // Reset currentOrder whenever the question changes
   useEffect(() => {
@@ -38,6 +39,8 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
       (stepIndex, index) => stepIndex === question.correctOrder[index]
     );
 
+    setIsAnswerCorrect(isCorrect); // Track if the answer is correct
+
     if (isCorrect) {
       onAnswer(true); // Pass the result to the parent
     } else {
@@ -53,6 +56,7 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
   const resetQuestion = () => {
     setCurrentOrder(question.steps.map((_, i) => i)); // Reset the order
     setChecked(false); // Reset the checked state
+    setIsAnswerCorrect(null); // Reset the answer correctness
     setShowExplanation(false); // Reset explanation visibility
   };
 
@@ -63,48 +67,48 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
     <div className="question-card">
       {!showExplanation && (
         <>
-      <div className="question-text">
-        <ProgressBar current={current} total={total} />
-        {question.question}
-      </div>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="steps">
-          {(provided) => (
-            <div
-              className="steps"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {currentOrder.map((stepIndex, index) => (
-                <Draggable
-                  key={stepIndex}
-                  draggableId={`step-${stepIndex}`}
-                  index={index}
+          <div className="question-text">
+            <ProgressBar current={current} total={total} />
+            {question.question}
+          </div>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId="steps">
+              {(provided) => (
+                <div
+                  className="steps"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
                 >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      className={`step-box
-                        ${checked && isCorrect(index) ? "correct" : ""}
-                        ${checked && !isCorrect(index) ? "incorrect" : ""}
-                        ${snapshot.isDragging ? "dragging" : ""}
-                      `}
+                  {currentOrder.map((stepIndex, index) => (
+                    <Draggable
+                      key={stepIndex}
+                      draggableId={`step-${stepIndex}`}
+                      index={index}
                     >
-                      <span className="step-text">
-                        {question.steps[stepIndex]}
-                      </span>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      </>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className={`step-box
+                            ${checked && isCorrect(index) ? "correct" : ""}
+                            ${checked && !isCorrect(index) ? "incorrect" : ""}
+                            ${snapshot.isDragging ? "dragging" : ""}
+                          `}
+                        >
+                          <span className="step-text">
+                            {question.steps[stepIndex]}
+                          </span>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </>
       )}
       {!checked && !showExplanation && (
         <div className="submit-button" onClick={handleSubmit}>
@@ -112,7 +116,7 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
         </div>
       )}
 
-      {checked && !showExplanation && attempts < 2 && (
+      {checked && !showExplanation && !isAnswerCorrect && attempts < 2 && (
         <div
           className="submit-button"
           onClick={resetQuestion}
@@ -141,7 +145,7 @@ const SequenceQuestion = ({ question, onNext, onAnswer, current, total }) => {
         </div>
       )}
 
-      {checked && !showExplanation && attempts >= 2 && (
+      {checked && !showExplanation && isAnswerCorrect && (
         <div
           className="submit-button"
           onClick={onNext}

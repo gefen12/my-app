@@ -58,7 +58,7 @@ body {
   z-index: 1;
 }
 .leopard-pattern {
-  position: absolute;
+  position: fixed;
   bottom:0vh;
   left: 0vw;
   width: 100%;
