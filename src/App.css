@@ -2,6 +2,9 @@
   color:black;
   direction: rtl;
 }
+html, body {
+  touch-action: none; /* Disable touch scrolling */
+}
 img {
   pointer-events: none;
 }
@@ -19,7 +22,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  overflow: hidden;
+  overflow-y:  hidden;
   background-color: #D7AC87;
   background-size: cover;
   background-position: center;
