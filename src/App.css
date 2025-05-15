@@ -43,14 +43,14 @@ body {
 
 
 .logo {
-  position: absolute;
+  position: fixed;
   top:2.5vh;
   right:2vw;
   height: 50px;
   object-fit: contain;
 }
 .leopard {
-  position: absolute;
+  position:fixed;
   left:0vw;
   top:5vh;
   width: 80%;
