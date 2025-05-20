@@ -1,22 +1,24 @@
 .fill-container {
-    position: fixed;
-    justify-items: center;
-    top: 1.7rem;
-    max-width: 320px;
-    width: 90vw;
-    margin: 1rem;
-    direction: rtl;
-    text-align: right;
-    padding: 10px;
-    z-index: 2;
-    font-size: 1rem;
-  }
+  position: fixed; /* Keep it fixed relative to the viewport */
+  top: 55%; /* Position the top edge at 50% of the viewport height */
+  left: 50%; /* Position the left edge at 50% of the viewport width */
+ 
+  transform: translate(-50%, -50%); /* Center the element by shifting it back by 50% of its width and height */
+  max-width: 320px; /* Limit the width */
+  width: 85vw; /* Set width relative to the viewport */
+  direction: rtl; /* Right-to-left text direction */
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  z-index: 2;
+  font-size: 1rem;
+}
 
-  .explanation {
+  .explanationF {
     position: relative;
     background-color: white;
     border-radius: 10px;
-    width: 90vw;
+    width: 80vw;
     font-size: 1.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 1rem;
@@ -29,7 +31,7 @@
     background-color: white;
     padding: 1rem;
     border-radius: 10px;
-    width: 100%;
+    width: 90%;
     font-size: 1.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 1rem;
