@@ -1,19 +1,23 @@
 .fill-container {
-    position: relative;
+    position: fixed;
     justify-items: center;
-    top: 1.7rem;
+    top: 55%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
     max-width: 320px;
-    margin: 1rem;
+    width: 85vw;
     direction: rtl;
     text-align: right;
     padding: 10px;
     z-index: 2;
     font-size: 1rem;
   }
+
   .explanation {
     position: relative;
     background-color: white;
     border-radius: 10px;
+    top:0rem;
     width: 90vw;
     font-size: 1.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
