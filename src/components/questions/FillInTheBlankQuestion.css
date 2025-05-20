@@ -1,11 +1,10 @@
 .fill-container {
     position: fixed;
     justify-items: center;
-    top: 55%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
+    top: 1.7rem;
     max-width: 320px;
-    width: 85vw;
+    width: 90vw;
+    margin: 1rem;
     direction: rtl;
     text-align: right;
     padding: 10px;
@@ -17,7 +16,6 @@
     position: relative;
     background-color: white;
     border-radius: 10px;
-    top:0rem;
     width: 90vw;
     font-size: 1.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
