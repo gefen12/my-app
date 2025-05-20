@@ -179,19 +179,19 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
         </>
         )}
         {!submitted && !showExplanation && (
-          <div className="submit-button" onClick={checkAnswers}>
+          <div className="submit-buttonF" onClick={checkAnswers}>
             בדוק
           </div>
         )}
 
         {submitted && !showExplanation && !question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && attempts < 2 && (
-          <div className="submit-button" onClick={resetQuestion}>
+          <div className="submit-buttonF" onClick={resetQuestion}>
             נסה שוב
           </div>
         )}
 
         {showExplanation && (
-          <div className="explanationF">
+          <div className="explanation">
             <h3>הסבר:</h3>
             <p>{question.explanation}</p>
             <div className="submit-button" onClick={onNext}>
@@ -201,7 +201,7 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
         )}
 
         {submitted && !showExplanation && question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && (
-          <div className="submit-button" onClick={onNext}>
+          <div className="submit-buttonF" onClick={onNext}>
             המשך
           </div>
         )}
