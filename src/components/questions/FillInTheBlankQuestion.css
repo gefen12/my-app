@@ -76,7 +76,7 @@
   }
   
   .empty-slot {
-    color:#aaa;
+    /* color:#aaa; */
     font-style: italic;
     padding: 4px;
   }

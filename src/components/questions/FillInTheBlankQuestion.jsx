@@ -1,108 +1,105 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import "./FillInTheBlankQuestion.css";
-import ProgressBar from "../ProgressBar.jsx"; // Import the ProgressBar component
+import React, { useState } from 'react';
+import { DndContext } from '@dnd-kit/core';
+import DraggableItem from "../dnd/DraggableItem";
+import DroppableArea from "../dnd/DroppableArea";
+import './FillInTheBlankQuestion.css';
+import ProgressBar from '../ProgressBar.jsx';
 
 export default function FillInTheBlank({ question, onAnswer, onNext, current, total }) {
-    // Create unique IDs for options
-    const initializedOptions = question.options.map((word, i) => ({
-      id: `${word}-${i}`,
-      word,
-    }));
-  
-    // Each answer row has as many blanks as there are correct words
-    const [answers, setAnswers] = useState(
-      question.blocks.map((block) =>
-        block.correctWords.map(() => null)
-      )
-    );
-    const [options, setOptions] = useState(initializedOptions);
-    const [submitted, setSubmitted] = useState(false);
-    const [attempts, setAttempts] = useState(0); // Track the number of attempts
-    const [showExplanation, setShowExplanation] = useState(false); // Show explanation after 2 incorrect attempts
+  const initializedOptions = question.options.map((word, i) => ({
+    id: `${word}-${i}`,
+    word,
+  }));
 
-    
-    const onDragEnd = ({ source, destination, draggableId }) => {
-      if (!destination) return;
-  
-      const sourceId = source.droppableId;
-      const destId = destination.droppableId;
-  
-      // from options to a blank
-      if (sourceId === "options" && destId.startsWith("blank-")) {
-        const [_, row, blank] = destId.split("-");
-        const wordObj = options.find((w) => w.id === draggableId);
-        if (!wordObj) return;
-  
-        // Only allow placing in empty slot
-        if (answers[row][blank]) return;
-  
-        const newAnswers = [...answers];
-        newAnswers[row][blank] = wordObj;
-        setAnswers(newAnswers);
-        setOptions(options.filter((w) => w.id !== draggableId));
-      }
-  
-      // from blank back to options
-      if (sourceId.startsWith("blank-") && destId === "options") {
-        const [_, row, blank] = sourceId.split("-");
-        const wordObj = answers[row][blank];
-        if (!wordObj) return;
-  
-        const newAnswers = [...answers];
-        newAnswers[row][blank] = null;
-        setAnswers(newAnswers);
-        setOptions([...options, wordObj]);
-      }
-    };
-  
-    const isCorrect = (rowIndex) => {
-      const correctWords = question.blocks[rowIndex].correctWords;
-      const userWords = answers[rowIndex].map((a) => a?.word || null);
+  const [answers, setAnswers] = useState(
+    question.blocks.map((block) => block.correctWords.map(() => null))
+  );
+  const [options, setOptions] = useState(initializedOptions);
+  const [submitted, setSubmitted] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [showExplanation, setShowExplanation] = useState(false);
 
-      return (
-        correctWords.length === userWords.length &&
-        correctWords.every((word, i) => word === userWords[i])
-      );
-    };
+  const handleDragEnd = ({ active, over }) => {
+    document.body.style.overflow = "auto"; // Re-enable scroll
   
-    const checkAnswers = () => {
-        setSubmitted(true);
-        // Check if all rows are correct
-        const allCorrect = question.blocks.every((_, rowIndex) => isCorrect(rowIndex));
-        if (allCorrect) {
-          onAnswer(true); // Pass the result to the parent
-        } else {
-          const newAttempts = attempts + 1; // Increment attempts
-          setAttempts(newAttempts);
-    
-          if (newAttempts >= 2) {
-            setShowExplanation(true); // Show explanation after 2 incorrect attempts
-          }
-        }
-    };
-    const resetQuestion = () => {
-      setAnswers(
-        question.blocks.map((block) =>
-          block.correctWords.map(() => null)
-        )
-      );
-      setOptions(initializedOptions);
-      setSubmitted(false);
-      setShowExplanation(false);
-    };
+    if (!over) return;
   
-    return (
-      <div className="fill-container">
-        {!showExplanation && (
-          <>
+    const fromId = active.id;
+    const toId = over.id;
+  
+    // If dropped in the same spot, do nothing
+    if (fromId === toId) return;
+  
+    // Check if dropping into a blank
+    if (toId.startsWith("blank-")) {
+      const [_, rowIndex, blankIndex] = toId.split("-");
+  
+      // Make sure blank is empty
+      if (answers[rowIndex][blankIndex]) return;
+  
+      // Find dragged word in options
+      const draggedWord = options.find((w) => w.id === fromId);
+      if (!draggedWord) return;
+  
+      // Place the word in the blank
+      const newAnswers = [...answers];
+      newAnswers[rowIndex][blankIndex] = draggedWord;
+      setAnswers(newAnswers);
+  
+      // Remove from options
+      setOptions(options.filter((w) => w.id !== fromId));
+    }
+  
+    // Check if moving from blank back to options
+    if (fromId.startsWith("blank-") && toId === "options") {
+      const [_, rowIndex, blankIndex] = fromId.split("-");
+      const removedWord = answers[rowIndex][blankIndex];
+  
+      if (!removedWord) return;
+  
+      const newAnswers = [...answers];
+      newAnswers[rowIndex][blankIndex] = null;
+      setAnswers(newAnswers);
+      setOptions([...options, removedWord]);
+    }
+  };
+  
+  const isCorrect = (rowIndex) => {
+    const correctWords = question.blocks[rowIndex].correctWords;
+    const userWords = answers[rowIndex].map((a) => a?.word || null);
+    return correctWords.length === userWords.length && correctWords.every((word, i) => word === userWords[i]);
+  };
+
+  const checkAnswers = () => {
+    setSubmitted(true);
+    const allCorrect = question.blocks.every((_, rowIndex) => isCorrect(rowIndex));
+    if (allCorrect) {
+      onAnswer(true);
+    } else {
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+      if (newAttempts >= 2) {
+        setShowExplanation(true);
+      }
+    }
+  };
+
+  const resetQuestion = () => {
+    setAnswers(question.blocks.map((block) => block.correctWords.map(() => null)));
+    setOptions(initializedOptions);
+    setSubmitted(false);
+    setShowExplanation(false);
+  };
+
+  return (
+    <div className="fill-container">
+    {!showExplanation && (
+      <>
         <h2 className="title-fill">
           <ProgressBar current={current} total={total} />
-          {question.question}</h2>
-        <DragDropContext onDragEnd={onDragEnd}   
-          onDragStart={() => {
-           document.body.style.overflow = 'hidden'; }}
-      >
+          {question.question}
+        </h2>
+        <DndContext onDragEnd={handleDragEnd}>
           {question.blocks.map((block, rowIndex) => {
             const parts = block.text.split("_");
             return (
@@ -111,36 +108,15 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
                   <span key={i}>
                     {part}
                     {i < block.correctWords.length && (
-                      <Droppable droppableId={`blank-${rowIndex}-${i}`}>
-                        {(provided) => (
-                          <span
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                            className="drop-slot"
-                          >
-                            {answers[rowIndex][i] ? (
-                              <Draggable
-                                draggableId={answers[rowIndex][i].id}
-                                index={0}
-                              >
-                                {(provided) => (
-                                  <span
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className="drop-word"
-                                  >
-                                    {answers[rowIndex][i].word}
-                                  </span>
-                                )}
-                              </Draggable>
-                            ) : (
-                              <span className="empty-slot"></span>
-                            )}
-                            {provided.placeholder}
-                          </span>
+                      <DroppableArea id={`blank-${rowIndex}-${i}`}>
+                        {answers[rowIndex][i] ? (
+                          <DraggableItem id={`blank-${rowIndex}-${i}`}>
+                            {answers[rowIndex][i].word}
+                          </DraggableItem>
+                        ) : (
+                          <span className="empty-slot">_____</span>
                         )}
-                      </Droppable>
+                      </DroppableArea>
                     )}
                   </span>
                 ))}
@@ -152,59 +128,47 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
               </div>
             );
           })}
-  
-         
-          <Droppable droppableId="options" direction="horizontal">
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className="word-bank">
-                {options.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="word"
-                      >
-                        {item.word}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-        </>
-        )}
-        {!submitted && !showExplanation && (
-          <div className="submit-buttonF" onClick={checkAnswers}>
-            בדוק
-          </div>
-        )}
 
-        {submitted && !showExplanation && !question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && attempts < 2 && (
-          <div className="submit-buttonF" onClick={resetQuestion}>
-            נסה שוב
-          </div>
-        )}
-
-        {showExplanation && (
-          <div className="explanation">
-            <h3>הסבר:</h3>
-            <p>{question.explanation}</p>
-            <div className="submit-button" onClick={onNext}>
-              המשך
+          <DroppableArea id="options">
+            <div className="word-bank">
+              {options.map((item) => (
+                <DraggableItem key={item.id} id={item.id}>
+                  {item.word}
+                </DraggableItem>
+              ))}
             </div>
-          </div>
-        )}
+          </DroppableArea>
+        </DndContext>
+      </>
+    )}
 
-        {submitted && !showExplanation && question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && (
-          <div className="submit-buttonF" onClick={onNext}>
-            המשך
-          </div>
-        )}
+    {!submitted && !showExplanation && (
+      <div className="submit-buttonF" onClick={checkAnswers}>
+        בדוק
       </div>
-    );
-  }
+    )}
+
+    {submitted && !showExplanation && !question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && attempts < 2 && (
+      <div className="submit-buttonF" onClick={resetQuestion}>
+        נסה שוב
+      </div>
+    )}
+
+    {showExplanation && (
+      <div className="explanation">
+        <h3>הסבר:</h3>
+        <p>{question.explanation}</p>
+        <div className="submit-button" onClick={onNext}>
+          המשך
+        </div>
+      </div>
+    )}
+
+    {submitted && !showExplanation && question.blocks.every((_, rowIndex) => isCorrect(rowIndex)) && (
+      <div className="submit-buttonF" onClick={onNext}>
+        המשך
+      </div>
+    )}
+  </div>
+);
+}
