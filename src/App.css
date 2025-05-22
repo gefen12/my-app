@@ -1,9 +1,11 @@
 * {
   color:black;
   direction: rtl;
+  user-select: none;
 }
 html, body {
-  touch-action: none; /* Disable touch scrolling */
+  touch-action: none;
+  overflow-x: hidden;
 }
 img {
   pointer-events: none;

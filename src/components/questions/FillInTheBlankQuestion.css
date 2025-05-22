@@ -10,6 +10,8 @@
   padding: 10px;
   z-index: 2;
   font-size: 1rem;
+  overflow: hidden;
+  touch-action: none;
 
 }
 
@@ -59,25 +61,26 @@
     border-radius: 6px;
     padding: 2px 8px;
     margin: 0 5px;
-    background-color: #fff;
     transition: background 0.2s;
   }
   
   .drop-slot:hover {
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0; */
   }
   
   .drop-word {
     background: white;
     border-radius: 6px;
     padding: 4px 10px;
-    margin: 0 5px;
+    /* margin: 0 5px; */
     cursor: grab;
   }
   
   .empty-slot {
-    /* color:#aaa; */
-    font-style: italic;
+    background-color: #ffffff;
+    width: 60px;
+    height: 20px;
+    border-radius: 6px;
     padding: 4px;
   }
   

@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
-import { DndContext } from '@dnd-kit/core';
 import DraggableItem from "../dnd/DraggableItem";
 import DroppableArea from "../dnd/DroppableArea";
 import './FillInTheBlankQuestion.css';
 import ProgressBar from '../ProgressBar.jsx';
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 
 export default function FillInTheBlank({ question, onAnswer, onNext, current, total }) {
   const initializedOptions = question.options.map((word, i) => ({
     id: `${word}-${i}`,
     word,
   }));
-
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5, // Prevent accidental drag on click
+      },
+    })
+  );
   const [answers, setAnswers] = useState(
     question.blocks.map((block) => block.correctWords.map(() => null))
   );
@@ -99,7 +110,7 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
           <ProgressBar current={current} total={total} />
           {question.question}
         </h2>
-        <DndContext onDragEnd={handleDragEnd}>
+        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
           {question.blocks.map((block, rowIndex) => {
             const parts = block.text.split("_");
             return (
@@ -114,7 +125,7 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
                             {answers[rowIndex][i].word}
                           </DraggableItem>
                         ) : (
-                          <span className="empty-slot">_____</span>
+                          <span className="empty-slot"></span>
                         )}
                       </DroppableArea>
                     )}
