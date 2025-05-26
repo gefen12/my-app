@@ -90,3 +90,12 @@
   }
 }
 
+@media (max-height: 600px) {
+ 
+  .step-box {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+}

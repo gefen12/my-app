@@ -114,3 +114,24 @@
     padding: 0.8rem; /* Adjust padding */
   }
 }
+@media (max-height: 615px) {
+  .quiz-container {
+    padding: 4px;
+  }
+  .option-button {
+    font-size: 0.85rem;
+    padding: 0.3rem;
+  }
+  .question-text {
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+  .submit-button {
+    font-size: 1rem;
+    padding: 0.3rem;
+  }
+  .explanation {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}

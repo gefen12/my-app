@@ -116,9 +116,9 @@
   .word:hover {
     background-color: #d6d6d6;
   }
-  .submit-buttonF {
+  /* .submit-buttonF {
     text-align: center  ;
-    position: relative;
+    position: absolute;
     margin-top: 1rem;
     background-color: white;
     border: none;
@@ -129,8 +129,23 @@
     font-size: 1.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-  }
-
+  } */
+/* Center the button horizontally */
+.submit-buttonF {
+  display: block;
+  margin: 1rem auto 0 auto;
+  background-color: white;
+  border: none;
+  padding: 0.5rem;
+  width: 7rem;
+  border-radius: 10px;
+  color: #d67f2c;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  text-align: center;
+  position: static; /* Remove absolute positioning */
+}
 
   
   .check-result {
@@ -172,3 +187,28 @@
     }
 
   }
+
+@media (max-height: 615px) {
+  .fill-container,
+  .title-fill,
+  .explanationF,
+  .word,
+  .submit-buttonF {
+    font-size: 0.95rem;
+    padding: 0.3rem 0.5rem;
+  }
+  .title-fill {
+    padding: 0.5rem;
+  }
+  .explanationF {
+    padding: 0.5rem;
+  }
+  .submit-buttonF {
+    padding: 0.3rem 0.5rem;
+  }
+  .word-bank {
+    padding: 5px 5px;
+    min-height: 30px;
+    height: 50px;
+  }
+}
