@@ -14,24 +14,14 @@
 }
 
   .explanationF {
-  position: fixed; /* Fix it relative to the viewport */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex; /* Use Flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  background-color: white;
-  border-radius: 10px;
-  width: 80vw;
-  max-width: 400px; /* Optional: Limit the width */
-  font-size: 1.2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  margin: auto; /* Ensure centering */
-  text-align: center;
-  padding: 1rem; /* Add padding for spacing */
-  z-index: 10; /* Ensure it appears above other elements */
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    width: 80vw;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
   
