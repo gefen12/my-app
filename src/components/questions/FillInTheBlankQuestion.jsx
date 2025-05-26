@@ -166,7 +166,7 @@ export default function FillInTheBlank({ question, onAnswer, onNext, current, to
     )}
 
     {showExplanation && (
-      <div className="explanation">
+      <div className="explanationF">
         <h3>הסבר:</h3>
         <p>{question.explanation}</p>
         <div className="submit-button" onClick={onNext}>
