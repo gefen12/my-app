@@ -64,19 +64,40 @@ function App() {
               />
             </>
           )}
-          {!showWelcome && quizCompleted && (
-            <div className="final-score">
-              <div>סיימת את הלומדה בצורה קטלנית!</div>
-              <p> ענית נכון על {calculateScore()} / {questions.length} שאלות  </p>
-              {/* <img src={tigerTool} alt="tiger tool" className="tiger-tool" oncontextmenu="return false;" /> */}
-              <button
-                onClick={() => setShowLandingPhoto(true)} // Show landing photo on click
-                className="finish-button"
-              >
-                סיים
-              </button>
-            </div>
-          )}
+          {!showWelcome && quizCompleted && (() => {
+  const grade = Math.round((calculateScore() / questions.length) * 100);
+  if (grade > 60) {
+    return (
+      <div className="final-score">
+        <div>סיימת את הלומדה בצורה קטלנית!</div>
+        <p>הציון שלך: {grade}%</p>
+        <button
+          onClick={() => setShowLandingPhoto(true)}
+          className="finish-button"
+        >
+          סיים
+        </button>
+      </div>
+    );
+  } else {
+    return (
+      <div className="final-score">
+        <div>הציון שלך: {grade}%</div>
+        <div>תרצה לנסות שוב?</div>
+        <button
+          onClick={() => {
+            setQuizCompleted(false);
+            setCurrentQuestionIndex(0);
+            setResults({});
+          }}
+          className="finish-button"
+        >
+          נסה שוב
+        </button>
+      </div>
+    );
+  }
+})()}
         </>
       )}
     </div>
