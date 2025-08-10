@@ -172,13 +172,7 @@
       font-size: 1rem; /* Reduce font size for the question */
       padding: 0.2rem; /* Adjust padding */
     }
-    .submit-button {
-      position: absolute; /* Keep consistent positioning */
-      bottom: 2rem; /* Adjust as needed */
-      right: 30%; /* Align horizontally */
-      padding: 0.5rem;
-      font-size: 1rem;
-    }
+
     .word-bank {
         min-height: 20px;
       }

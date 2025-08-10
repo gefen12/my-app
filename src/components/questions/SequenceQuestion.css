@@ -82,12 +82,7 @@
     font-size: 1rem; /* Reduce font size for the question */
     padding: 0.5rem; /* Adjust padding */
   }
-  .submit-button {
-    margin-top: 5rem;
-    padding: 0.2rem;
-    font-size: 1rem;
-    right:45%;
-  }
+
 }
 
 @media (max-height: 600px) {
